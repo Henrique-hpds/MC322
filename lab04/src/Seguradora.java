@@ -106,36 +106,36 @@ class Seguradora {
             
             for (Cliente atual : listaClientes) 
                 if (atual instanceof ClientePF){
-                    retorno += "Cliente " + i++ + ":\n";
-                    retorno += "Nome: " + atual.getNome() + "\n";
-                    retorno += "CPF: " + ((ClientePF)atual).getCpf() + "\n\n";
+                    retorno += "    Cliente " + i++ + ":\n";
+                    retorno += "    Nome: " + atual.getNome() + "\n";
+                    retorno += "    CPF: " + ((ClientePF)atual).getCpf() + "\n\n";
                 }
 
         }else if (tipoCliente.equals("PJ")){ 
 
             for (Cliente atual2 : listaClientes)
                 if (atual2 instanceof ClientePJ){
-                    retorno += "Cliente " + i++ + ":\n";
-                    retorno += "Nome: " + atual2.getNome() + "\n";
-                    retorno += "CNPJ: " + ((ClientePJ)atual2).getCnpj() + "\n\n";
+                    retorno += "    Cliente " + i++ + ":\n";
+                    retorno += "    Nome: " + atual2.getNome() + "\n";
+                    retorno += "    CNPJ: " + ((ClientePJ)atual2).getCnpj() + "\n\n";
                 }
                     
 
         }else if (tipoCliente.equals("ALL")){
             for (Cliente atual3 : listaClientes){
-                retorno += "Cliente " + i++ + ":\n";
-                retorno += "Nome: " + atual3.getNome() + "\n";
+                retorno += "    Cliente " + i++ + ":\n";
+                retorno += "    Nome: " + atual3.getNome() + "\n";
 
                 if (atual3 instanceof ClientePF)
-                    retorno += "CPF: " + ((ClientePF)atual3).getCpf() + "\n\n";
+                    retorno += "    CPF: " + ((ClientePF)atual3).getCpf() + "\n\n";
                 else if (atual3 instanceof ClientePJ)
-                    retorno += "CNPJ: " + ((ClientePJ)atual3).getCnpj() + "\n\n";
+                    retorno += "    CNPJ: " + ((ClientePJ)atual3).getCnpj() + "\n\n";
 
             }
         }
 
         if (retorno.equals(""))
-            System.out.println("Nâo há clientes dessa categoria no cadastro!");
+            System.out.println("    Nao ha clientes dessa categoria no cadastro!");
         else System.out.println(retorno);
     }
 
@@ -178,17 +178,17 @@ class Seguradora {
         String lista = "\n";
 
         for (Sinistro atual : listaSinistros) {
-            lista += "Sinistro " + i++ + ":";
-            lista += "\nID: " + atual.getId();
-            lista += "\nData: " + atual.getData();
-            lista += "\nSeguradora: " + atual.getSeguradora().getNome();
-            lista += "\nVeiculo: " + atual.getVeiculo().getPlaca();
+            lista += "    Sinistro " + i++ + ":";
+            lista += "\n    ID: " + atual.getId();
+            lista += "\n    Data: " + atual.getData();
+            lista += "\n    Seguradora: " + atual.getSeguradora().getNome();
+            lista += "\n    Veiculo: " + atual.getVeiculo().getPlaca();
             lista += "\n";
 
             if (atual.getCliente() instanceof ClientePF)
-                lista += "CPF do Cliente: " + ((ClientePF)atual.getCliente()).getCpf();
+                lista += "    CPF do Cliente: " + ((ClientePF)atual.getCliente()).getCpf();
             else if (atual.getCliente() instanceof ClientePJ)
-                lista += "CNPJ do Cliente: " + ((ClientePJ)atual.getCliente()).getCnpj();
+                lista += "    CNPJ do Cliente: " + ((ClientePJ)atual.getCliente()).getCnpj();
 
             lista += "\n\n";
         }
@@ -215,16 +215,16 @@ class Seguradora {
         String lista = "\n", lista2 = "\n";
 
         for (Sinistro atual : listaSinistros)
-            lista += "\tSinistro " + i++ + ": " + atual.getId() + "\n"; 
+            lista += "    Sinistro " + i++ + ": " + atual.getId() + "\n"; 
 
         i = 1;
 
         for (Cliente atual2 : listaClientes) {
 
             if (atual2 instanceof ClientePF)
-                lista2 += "\tCliente " + i++ + ": " + ((ClientePF)atual2).getCpf();
+                lista2 += "    Cliente " + i++ + ": " + ((ClientePF)atual2).getCpf();
             else if (atual2 instanceof ClientePJ)
-                lista2 += "\tCliente " + i++ + ": " + ((ClientePJ)atual2).getCnpj();
+                lista2 += "    Cliente " + i++ + ": " + ((ClientePJ)atual2).getCnpj();
 
             lista2 += "\n";
         }

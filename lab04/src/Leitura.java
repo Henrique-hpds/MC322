@@ -43,7 +43,7 @@ public class Leitura {
             System.out.println("    Cadastre um Cliente (Pessoa Física)\n");
             
             while (true){
-                System.out.print("  Nome: ");
+                System.out.print("    Nome: ");
                 nome = leitura();
 
                 if (Validacao.validarNome(nome))
@@ -51,23 +51,33 @@ public class Leitura {
                 System.out.println("    Nome Invalido! Digite Novamente.");
             }
             
-            System.out.print("  Endereco: ");
+            System.out.print("    Endereco: ");
             endereco = leitura();
 
-            System.out.print("  Data da Licensa(Formato dd/mm/aaaa): ");
-            dataLicensa = stringToDate(leitura());
+            while (true) {
+                
+                System.out.print("    Data da Licensa(Formato dd/mm/aaaa): ");
+                aux = leitura();
+                
+                if (Validacao.validarData(aux)){
+                    dataLicensa = stringToDate(aux);
+                    break;
+                }
+                System.out.println("    Data Invalida! Digite Novamente.");                
+            }
 
-            System.out.print("  Educacao: ");
+
+            System.out.print("    Educacao: ");
             educacao = leitura();
             
-            System.out.print("  Genero: ");
+            System.out.print("    Genero: ");
             genero = leitura();
             
-            System.out.print("  Classe Econômica: ");
+            System.out.print("    Classe Economica: ");
             classeEconomica = leitura();
             
             while(true){
-                System.out.print("  CPF(Formato XXX.XXX.XXX-XX): ");
+                System.out.print("    CPF(Formato XXX.XXX.XXX-XX): ");
                 cpf = leitura();
 
                 if (Validacao.validarCPF(cpf))
@@ -76,7 +86,7 @@ public class Leitura {
             }
 
             while (true) {
-                System.out.print("  Data de Nascimento(Formato dd/mm/aaaa): ");
+                System.out.print("    Data de Nascimento(Formato dd/mm/aaaa): ");
                 
                 aux = leitura();
                 
@@ -98,7 +108,7 @@ public class Leitura {
             System.out.println("    Cadastre um Cliente (Pessoa Jurídica)\n");
             
             while (true){
-                System.out.print("  Nome: ");
+                System.out.print("    Nome: ");
                 nome = leitura();
 
                 if (Validacao.validarNome(nome))
@@ -106,11 +116,11 @@ public class Leitura {
                 System.out.println("    Nome Invalido! Digite Novamente.");
             }
 
-            System.out.print("  Endereco: ");
+            System.out.print("    Endereco: ");
             endereco = leitura();
 
             while(true){
-                System.out.print("  CNPJ(Formato XX.XXX.XXX/XXXX-XX): ");
+                System.out.print("    CNPJ(Formato XX.XXX.XXX/XXXX-XX): ");
                 cnpj = leitura();
                 if (Validacao.validarCNPJ(cnpj))
                     break;
@@ -118,7 +128,7 @@ public class Leitura {
             }
 
             while (true) {
-                System.out.print("  Data de Fundacao(Formato dd/mm/aaaa): ");
+                System.out.print("    Data de Fundacao(Formato dd/mm/aaaa): ");
                 aux2 = leitura();
                 
                 if (Validacao.validarData(aux2)){
@@ -130,7 +140,7 @@ public class Leitura {
             }
 
             while (true) {
-                System.out.println("    Quantidade de Funcionários: ");
+                System.out.print("    Quantidade de Funcionários: ");
                 quantidadeFuncionarios = Integer.parseInt(leitura());
                 if (quantidadeFuncionarios > 0)
                     break;
@@ -149,22 +159,18 @@ public class Leitura {
         
         System.out.println("    Cadastre a Seguradora\n");
         
-        while (true){
-            System.out.print("  Nome: ");
-            nome = leitura();
+        System.out.print("    Nome: ");
+        nome = leitura();
 
-            if (Validacao.validarNome(nome))
-                break;
-            System.out.println("    Nome Invalido! Digite Novamente.");
-        }
-
-        System.out.print("  Telefone: ");
+        System.out.print("    Telefone: ");
         telefone = leitura();
         
-        System.out.print("  Email: ");
+        System.out.print("    Email: ");
         email = leitura();
-        System.out.print("  Endereco: ");
+
+        System.out.print("    Endereco: ");
         endereco = leitura();
+        
         System.out.println();
 
         return new Seguradora(nome, telefone, email, endereco);
@@ -175,14 +181,21 @@ public class Leitura {
         int anoFabricacao;
 
         System.out.println("    Cadastre o Veiculo\n");
-        System.out.print("  Placa: ");
+        System.out.print("    Placa: ");
         placa = leitura();
-        System.out.print("  Marca: ");
+        System.out.print("    Marca: ");
         marca = leitura();
-        System.out.print("  Modelo: ");
+        System.out.print("    Modelo: ");
         modelo = leitura();
-        System.out.print("  Ano de Fabricacao: ");
-        anoFabricacao = Integer.parseInt(leitura());
+        System.out.print("    Ano de Fabricacao: ");
+
+        while (true){
+            anoFabricacao = Integer.parseInt(leitura());
+            if (anoFabricacao >= 0)
+                break;
+
+            System.out.println("    Ano Invalido!");
+        }
         System.out.println();
 
         return new Veiculo(placa, marca, modelo, anoFabricacao);
@@ -192,9 +205,18 @@ public class Leitura {
         String data, endereco;
 
         System.out.println("    Cadastre o Sinistro\n");
-        System.out.print("  Data: ");
-        data = leitura();
-        System.out.print("  Endereco: ");
+        
+        while (true) {
+            System.out.print("    Data(Formato dd/mm/aaaa): ");
+            data = leitura();
+            
+            if (Validacao.validarData(data))
+                break;
+
+            System.out.println("    Data Invalida! Digite Novamente.");
+        }
+
+        System.out.print("    Endereco: ");
         endereco = leitura();
 
         return new Sinistro(data, endereco);
@@ -225,7 +247,7 @@ public class Leitura {
         return operacao;
     }
 
-    public static SubMenu lerSubOperacao(){
+    public static SubMenu lerSubOperacao(String tipo){
         SubMenu operacao = SubMenu.VOLTAR;
         boolean terminou = false;
         int entrada;
@@ -238,7 +260,10 @@ public class Leitura {
             }
             
             for (SubMenu opcao : SubMenu.values()) {
-                if (opcao.getCodigo() == entrada) {
+                if (opcao.getCodigo() == 0)
+                    return SubMenu.VOLTAR;
+                    
+                if (opcao.getCodigo() == entrada && opcao.getTipo().equals(tipo)) {
                     operacao = opcao;
                     terminou = true;
                     break;

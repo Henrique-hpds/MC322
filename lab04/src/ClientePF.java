@@ -86,6 +86,5 @@ public class ClientePF extends Cliente {
     public String toString() {
         return super.toString() + "\n\nCPF: " + cpf + "\nGenero: " + genero + "\nDataLicensa: " + dataLicensa + "\nEducacao: " + educacao + "\nDataNascimento: " + dataNascimento + "\nClasseEconomica: " + classeEconomica + "\n---------------------------------------";
     }
-
-    
+   
 }

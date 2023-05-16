@@ -34,8 +34,8 @@ public enum MenuOperacoes {
 
     public static void listarOpcoesMenu(){
         System.out.println();
-        for (MenuOperacoes atual : MenuOperacoes.values())            System.out.println("    " + atual.codigo + " - " + atual.operacao);
+        for (MenuOperacoes atual : MenuOperacoes.values())            
+            System.out.println("    " + atual.codigo + " - " + atual.operacao);
         System.out.println();
     }
 }
-
