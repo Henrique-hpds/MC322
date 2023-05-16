@@ -146,7 +146,7 @@ public class Validacao {
 
 
 
-        if (primeiro > 12 || primeiro < 1 || segundo > 12 || segundo < 1 || terceiro < 0) // não existiam seguradoras antes do ano 0
+        if (primeiro > 31|| primeiro < 1 || segundo > 12 || segundo < 1 || terceiro < 0) // não existiam seguradoras antes do ano 0
             return false;            
 
 

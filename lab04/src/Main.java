@@ -73,8 +73,10 @@ public class Main {
 
         for (Seguradora seguradora : listaSeguradoras)
             for (Cliente cliente : seguradora.getListaClientes())
-                if (cliente.getNome().equals(nomeBuscar))
+                if (cliente.getNome().equals(nomeBuscar)){
                     cliente.addVeiculo(vrumvrum);
+                    cliente.setValorSeguro(cliente.calculaScore());
+                }
 
         System.out.println("    Veiculo cadastrado com sucesso!");
     }
@@ -99,34 +101,158 @@ public class Main {
         System.out.println("    Seguradora nao encontrada!");
     }
 
-    public static void listar_sinistros_por_seguradora(List<Seguradora> listaSeguradoras){
+    public static void listar_sinistros_por_seguradora(List<Seguradora> listaSeguradoras){ // o
+        
+        System.out.print("    Nome da Seguradora: ");
+        String nomeSeguradora = Leitura.leitura();
 
+        for (Seguradora seguradora : listaSeguradoras) {
+            if (seguradora.getNome().equals(nomeSeguradora)) {
+                seguradora.listarSinistros();
+                return;
+            }
+        }
     }    
     
-    public static void listar_sinistro_por_cliente(List<Seguradora> listaSeguradoras){
+    public static void listar_sinistro_por_cliente(List<Seguradora> listaSeguradoras){ // o
+        System.out.print("    Nome do Cliente: ");
+        String nomeCiente;
 
+        while (true) {
+            nomeCiente = Leitura.leitura();
+
+            if (Validacao.validarNome(nomeCiente))
+                break;
+            System.out.println("    Nome invalido, tente novamente!");
+        }
+
+        boolean achou1 = false;
+
+        for (Seguradora seguradora : listaSeguradoras) {
+            if (seguradora.visualizarSinistro(nomeCiente)){
+                achou1 = true;
+            }
+        }
+
+        if (!achou1)
+            System.out.println("    O cliente nao foi localizado no sistema!");
     }
 
-    public static void listar_veiculo_por_cliente(List<Seguradora> listaSeguradoras){
+    public static void listar_veiculo_por_cliente(List<Seguradora> listaSeguradoras){ // o
+        System.out.print("    Nome do Cliente: ");
+        String nomeCliente;
 
+        while (true) {
+            nomeCliente = Leitura.leitura();
+
+            if (Validacao.validarNome(nomeCliente))
+                break;
+            System.out.println("    Nome invalido, tente novamente!");
+        }
+
+        for (Seguradora seguradora : listaSeguradoras) {
+            for (Cliente cliente : seguradora.getListaClientes()) {
+                if (cliente.getNome().equals(nomeCliente)) {
+                    for (Veiculo veiculo : cliente.getListaVeiculos()) {
+                        System.out.println(veiculo.toString());
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        System.out.println("    O cliente nao foi localizado no sistema!");
     }
 
-    public static void listar_veiculo_por_seguradora(List<Seguradora> listaSeguradoras){
+    public static void listar_veiculo_por_seguradora(List<Seguradora> listaSeguradoras){ // o
+        System.out.print("    Nome da Seguradora: ");
+        String nomeSeguradora = Leitura.leitura();
 
+        for (Seguradora seguradora : listaSeguradoras) {
+            if (seguradora.getNome().equals(nomeSeguradora)) {
+                for (Cliente cliente : seguradora.getListaClientes()) {
+                    for (Veiculo veiculo : cliente.getListaVeiculos()) {
+                        System.out.println(veiculo.toString());
+                    }
+                }
+
+                return;
+            }
+        }
+
+        System.out.println("    Seguradora nao encontrada, tente novamente!");
     }
 
-    public static void excluir_cliente(List<Seguradora> listaSeguradoras){
+    public static void excluir_cliente(List<Seguradora> listaSeguradoras){ // o
+        System.out.print("    Nome do Cliente: ");
+        String nomeCiente;
 
+        while (true) {
+            nomeCiente = Leitura.leitura();
+
+            if (Validacao.validarNome(nomeCiente))
+                break;
+            System.out.println("    Nome invalido, tente novamente!");
+        }
+
+        for (Seguradora seguradora : listaSeguradoras) {
+            for (Cliente cliente : seguradora.getListaClientes()) {
+                if (cliente.getNome().equals(nomeCiente)) {
+                    seguradora.getListaClientes().remove(cliente);
+                    System.out.println("    Cliente removido com sucesso!");
+                }
+            }
+        }
+
+        System.out.println("    Cliente nao encontrado!");
     }    
 
-    public static void excluir_veiculo(List<Seguradora> listaSeguradoras){
+    public static void excluir_veiculo(List<Seguradora> listaSeguradoras){ // o
+        System.out.print("    Placa do carro: ");
+        String placaCarro = Leitura.leitura();
+
+        boolean removeu = false;
+
+        for (Seguradora seguradora : listaSeguradoras) {
+            for (Cliente cliente : seguradora.getListaClientes()) {
+                for (Veiculo veiculo : cliente.getListaVeiculos()) {
+                    if (veiculo.getPlaca().equals(placaCarro)) {
+                        cliente.getListaVeiculos().remove(veiculo);
+                        cliente.setValorSeguro(cliente.calculaScore());
+                        removeu = true;
+                    }
+                }
+            }
+        }
+
+        if (removeu) {
+            System.out.println("    Veiculo removido com Sucesso!");
+        }else System.out.println("    Veiculo nao localizado!");
 
     }
 
-    public static void excluir_sinistro(List<Seguradora> listaSeguradoras){
+    public static void excluir_sinistro(List<Seguradora> listaSeguradoras){ // o
+        System.out.print("    Placa do veiculo: ");
+        String placa = Leitura.leitura();
+        System.out.print("    Endereco do sinistro: ");
+        String endereco = Leitura.leitura();
 
+        boolean removeu = false;
+
+        for (Seguradora seguradora : listaSeguradoras) {
+            for (Sinistro sinistro : seguradora.getListaSinistros()) {
+                if (sinistro.getVeiculo().getPlaca().equals(placa) && sinistro.getEndereco().equals(endereco)) {
+                    seguradora.getListaSinistros().remove(sinistro);
+                    removeu = true;
+                }
+            }
+        }
+
+        if (removeu) {
+            System.out.println("    Sinistro removido!");
+        }else System.out.println("    Sinistro nao localizado!");
     }
-
     
 
     public static boolean submenu(SubMenu opcao, List<Seguradora> listaSeguradoras){
@@ -147,27 +273,27 @@ public class Main {
                 listar_cliente_por_seguradora(listaSeguradoras);
                 break;
 
-            case LISTAR_SINISTROS_POR_SEGURADORA:
+            case LISTAR_SINISTROS_POR_SEGURADORA: // o
                 listar_sinistros_por_seguradora(listaSeguradoras);
                 break;
 
-            case LISTAR_SINISTRO_POR_CLIENTE:
+            case LISTAR_SINISTRO_POR_CLIENTE: // o
                 listar_sinistro_por_cliente(listaSeguradoras);
                 break;
 
-            case LISTAR_VEICULO_POR_CLIENTE:
+            case LISTAR_VEICULO_POR_CLIENTE: // o
                 listar_veiculo_por_cliente(listaSeguradoras);
                 break;
 
-            case LISTAR_VEICULO_POR_SEGURADORA:
+            case LISTAR_VEICULO_POR_SEGURADORA: // o
                 listar_veiculo_por_seguradora(listaSeguradoras);
                 break;
 
-            case EXCLUIR_CLIENTE:
+            case EXCLUIR_CLIENTE: // o
                 excluir_cliente(listaSeguradoras);
                 break;
 
-            case EXCLUIR_VEICULO:
+            case EXCLUIR_VEICULO: // o
                 excluir_veiculo(listaSeguradoras);
                 break;
 
@@ -188,7 +314,7 @@ public class Main {
     public static void gerar_sinistro(List<Seguradora> listaSeguradoras){ // o
         Sinistro sinistro = Leitura.lerSinistro();
 
-        System.out.print("  Nome da Seguradora: ");
+        System.out.print("    Nome da Seguradora: ");
         String nomeSeguradora = Leitura.leitura();
 
         for (Seguradora seguradora : listaSeguradoras) {
@@ -212,6 +338,7 @@ public class Main {
             
                 
                 seguradora.gerarSinistro(sinistro);
+                System.out.println("    Sinistro cadastrado com sucesso!");
                 return;
             }
         }
@@ -219,10 +346,10 @@ public class Main {
         System.out.println("    Seguradora nao encontrada!");
     }
 
-    public static void transferir_seguro(List<Seguradora> listaSeguradoras){
+    public static void transferir_seguro(List<Seguradora> listaSeguradoras){ // o
 
         String nomeTranfere, nomeRecebe;
-        Cliente transfere, recebe;
+        Cliente transfere = null, recebe = null;
 
         while (true){
             System.out.print("    Nome de quem vai transferir: ");
@@ -244,32 +371,44 @@ public class Main {
 
         boolean achou1 = false, achou2 = false;
 
-        for (Seguradora seguradora : listaSeguradoras) { // errado
+        for (Seguradora seguradora : listaSeguradoras) {
             for (Cliente cliente : seguradora.getListaClientes()) {
-                if (achou1 && achou2)
-                    break;
                 if (cliente.getNome().equals(nomeTranfere)){
                     transfere = cliente;
                     achou1 = true;
-                }
-                else if (cliente.getNome().equals(nomeRecebe)){
-                    recebe = cliente;
-                    achou2 = true;
-                }
-                
+                    break;
+                }                
             }
         }
 
 
+        for (Seguradora seguradora : listaSeguradoras) {
+            for (Cliente cliente : seguradora.getListaClientes()) {
+                if (cliente.getNome().equals(nomeRecebe)){
+                    recebe = cliente;
+                    achou2 = true;
+                    break;
+                }        
+            }
+        }
 
-        List<Veiculo> aux;
+        if (!achou1){
+            System.out.println("    Remetente nao encontrado!");
+            return;
+        }
+        if (!achou2){
+            System.out.println("    Destinatario nao encontrado!");
+            return;
+        }
 
-        aux = transfere.getListaVeiculos();
-        
+        transfere.getListaVeiculos().addAll(recebe.getListaVeiculos());
+        recebe.setListaVeiculos(transfere.getListaVeiculos());
+        transfere.setListaVeiculos(new ArrayList<Veiculo>());
 
+        recebe.setValorSeguro(recebe.calculaScore());
+        recebe.setValorSeguro(transfere.calculaScore());
 
-
-
+        System.out.println("    Operacao finalizada!");
     }
 
     public static void calcular_receita_seguradora(List<Seguradora> listaSeguradoras){ // o
@@ -279,14 +418,14 @@ public class Main {
         for (Seguradora seguradora : listaSeguradoras) {
             if (seguradora.getNome().equals(nomeSeguradora)) {
                 seguradora.calcularReceita();
-                System.out.println("    A receita da seguradora " + seguradora.getNome() + "vale " + seguradora.getReceita());
+                System.out.println("    A receita da seguradora " + seguradora.getNome() + " vale " + seguradora.getReceita());
                 return;
             }
         }
         System.out.println("    Seguradora nao encontrada!");
     }
 
-    public static boolean menu(MenuOperacoes opcao, List<Seguradora> listaSeguradoras){
+    public static boolean menu(MenuOperacoes opcao, List<Seguradora> listaSeguradoras){ // o
         
         switch (opcao) {
         
@@ -300,7 +439,7 @@ public class Main {
                 gerar_sinistro(listaSeguradoras);
                 break;
 
-            case TRANSFERIR_SEGURO:
+            case TRANSFERIR_SEGURO: // o
                 transferir_seguro(listaSeguradoras);
                 break;
 

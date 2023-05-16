@@ -141,7 +141,13 @@ public class Leitura {
 
             while (true) {
                 System.out.print("    Quantidade de Funcionários: ");
-                quantidadeFuncionarios = Integer.parseInt(leitura());
+                try {
+                    quantidadeFuncionarios = Integer.parseInt(leitura());
+                    
+                } catch (Exception e) {
+                    continue;
+                }
+                
                 if (quantidadeFuncionarios > 0)
                     break;
 
@@ -190,7 +196,11 @@ public class Leitura {
         System.out.print("    Ano de Fabricacao: ");
 
         while (true){
-            anoFabricacao = Integer.parseInt(leitura());
+            try {
+                anoFabricacao = Integer.parseInt(leitura());
+            } catch (Exception e) {
+                continue;
+            }
             if (anoFabricacao >= 0)
                 break;
 
