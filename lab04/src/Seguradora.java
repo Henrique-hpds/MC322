@@ -181,8 +181,7 @@ class Seguradora {
             lista += "    Sinistro " + i++ + ":";
             lista += "\n    ID: " + atual.getId();
             lista += "\n    Data: " + atual.getData();
-            lista += "\n    Seguradora: " + atual.getSeguradora().getNome();
-            lista += "\n    Veiculo: " + atual.getVeiculo().getPlaca();
+            lista += "\n    Seguradora: " + this.nome;
             lista += "\n";
 
             if (atual.getCliente() instanceof ClientePF)

@@ -193,9 +193,9 @@ public class Leitura {
         marca = leitura();
         System.out.print("    Modelo: ");
         modelo = leitura();
-        System.out.print("    Ano de Fabricacao: ");
-
+        
         while (true){
+            System.out.print("    Ano de Fabricacao: ");
             try {
                 anoFabricacao = Integer.parseInt(leitura());
             } catch (Exception e) {
