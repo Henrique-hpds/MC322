@@ -44,6 +44,6 @@ class Veiculo {
     }
 
     public String toString() {
-        return "Veiculo Placa " + placa + "\n\nmarca = " + marca + "\nmodelo = " + modelo + "\nanoFabricacao = " + anoFabricacao + "\n---------------------------------------";
+        return "\n\tVeiculo Placa " + placa + "\n\tmarca: " + marca + "\n\tmodelo: " + modelo + "\n\tanoFabricacao: " + anoFabricacao + "\n---------------------------------------";
     }
 }

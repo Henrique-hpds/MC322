@@ -87,7 +87,7 @@ class Sinistro {
         else if (cliente instanceof ClientePJ)
             retornoCliente += ((ClientePJ)cliente).getCnpj();
 
-        return "\nSinistro ID " + id + "\nData: " + data + "\nEndereco: " + endereco + "\nCliente: " + retornoCliente + "\n---------------------------------------";
+        return "\n\tSinistro ID " + id + "\n\tData: " + data + "\n\tEndereco: " + endereco + "\n\tCliente: " + retornoCliente + "\n---------------------------------------";
     }
 
 }

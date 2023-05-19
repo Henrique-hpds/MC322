@@ -270,7 +270,7 @@ public class Leitura {
             }
             
             for (SubMenu opcao : SubMenu.values()) {
-                if (opcao.getCodigo() == 0)
+                if (entrada == 0)
                     return SubMenu.VOLTAR;
                     
                 if (opcao.getCodigo() == entrada && opcao.getTipo().equals(tipo)) {

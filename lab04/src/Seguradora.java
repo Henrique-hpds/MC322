@@ -145,6 +145,9 @@ class Seguradora {
 
     public boolean visualizarSinistro(String cliente){
 
+        if (listaSinistros.isEmpty())
+            return true;
+
         // não ficou claro o que cliente é, então estou comparando nome, cpf e cnpj
         for (Sinistro atual : listaSinistros) {
 
@@ -202,11 +205,12 @@ class Seguradora {
     }
 
     public void calcularReceita(){
-
         receita = 0;     
-    
+        calcularPrecoSeguroCliente();
+
         for (Cliente cliente : listaClientes)
-            receita += cliente.getValorSeguro();
+            receita += cliente.calculaScore() * (1 + listaSinistros.size());
+
     }
 
     public String toString() {

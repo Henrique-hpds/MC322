@@ -72,13 +72,15 @@ public class ClientePF extends Cliente {
         double fator_idade;
         long idade = ChronoUnit.YEARS.between(dataNascimento.toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate(), LocalDate.now());
     
+        
+
         if (idade >= 18 && idade <= 30)
             fator_idade = CalcSeguro.FATOR_18_30.getFator();
         else if (idade > 30 && idade <= 60)
             fator_idade = CalcSeguro.FATOR_30_60.getFator();
         else if (idade > 60 && idade <= 90)
             fator_idade = CalcSeguro.FATOR_60_90.getFator();
-        else fator_idade = 0; // idade muito baixa ou muito alta, não pode ter seguro
+        else fator_idade = CalcSeguro.VALOR_BASE.getFator(); // idade muito baixa ou muito alta
 
         return CalcSeguro.VALOR_BASE.getFator() * fator_idade * getListaVeiculos().size();
     }

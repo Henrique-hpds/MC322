@@ -76,9 +76,11 @@ public class Main {
                 if (cliente.getNome().equals(nomeBuscar)){
                     cliente.addVeiculo(vrumvrum);
                     cliente.setValorSeguro(cliente.calculaScore());
+                    System.out.println("    Veiculo cadastrado com sucesso!");
+                    return;
                 }
-
-        System.out.println("    Veiculo cadastrado com sucesso!");
+        
+        System.out.println("    Cliente nao encontrado no sistema!");
     }
 
     public static void cadastrar_seguradora(List<Seguradora> listaSeguradoras){ //o
@@ -112,6 +114,8 @@ public class Main {
                 return;
             }
         }
+
+        System.out.println("    Seguradora nao encontrada!");
     }    
     
     public static void listar_sinistro_por_cliente(List<Seguradora> listaSeguradoras){ // o
@@ -201,6 +205,7 @@ public class Main {
                 if (cliente.getNome().equals(nomeCiente)) {
                     seguradora.getListaClientes().remove(cliente);
                     System.out.println("    Cliente removido com sucesso!");
+                    return;
                 }
             }
         }
@@ -212,46 +217,51 @@ public class Main {
         System.out.print("    Placa do carro: ");
         String placaCarro = Leitura.leitura();
 
-        boolean removeu = false;
-
         for (Seguradora seguradora : listaSeguradoras) {
             for (Cliente cliente : seguradora.getListaClientes()) {
                 for (Veiculo veiculo : cliente.getListaVeiculos()) {
                     if (veiculo.getPlaca().equals(placaCarro)) {
                         cliente.getListaVeiculos().remove(veiculo);
                         cliente.setValorSeguro(cliente.calculaScore());
-                        removeu = true;
+                        System.out.println("    Veiculo removido com Sucesso!");
+                        return;
                     }
                 }
             }
         }
 
-        if (removeu) {
-            System.out.println("    Veiculo removido com Sucesso!");
-        }else System.out.println("    Veiculo nao localizado!");
+        System.out.println("    Veiculo nao localizado!");
 
     }
 
     public static void excluir_sinistro(List<Seguradora> listaSeguradoras){ // o
-        System.out.print("    Placa do veiculo: ");
-        String placa = Leitura.leitura();
+
+        String data;
+
+        while (true){
+            System.out.print("    Data do Sinistro: ");
+            data = Leitura.leitura();
+                
+            if (Validacao.validarData(data))
+                break;
+
+            System.out.println("    Data Invalida! Digite Novamente.");    
+        }
+
         System.out.print("    Endereco do sinistro: ");
         String endereco = Leitura.leitura();
 
-        boolean removeu = false;
-
         for (Seguradora seguradora : listaSeguradoras) {
             for (Sinistro sinistro : seguradora.getListaSinistros()) {
-                if (sinistro.getVeiculo().getPlaca().equals(placa) && sinistro.getEndereco().equals(endereco)) {
+                if (sinistro.getData().equals(data) && sinistro.getEndereco().equals(endereco)) {
                     seguradora.getListaSinistros().remove(sinistro);
-                    removeu = true;
+                    System.out.println("    Sinistro removido!");
+                    return;
                 }
             }
         }
 
-        if (removeu) {
-            System.out.println("    Sinistro removido!");
-        }else System.out.println("    Sinistro nao localizado!");
+        System.out.println("    Sinistro nao localizado!");
     }
     
 
@@ -305,7 +315,7 @@ public class Main {
                 return true;    
 
             default:
-                break;
+                return false;
         }
 
         return false;
@@ -367,6 +377,11 @@ public class Main {
             if (Validacao.validarNome(nomeRecebe))
                 break;
             System.out.println("    Nome Invalido! Digite Novamente.");
+        }
+
+        if (nomeRecebe.equals(nomeTranfere)){
+            System.out.println("    Erro! Destinatario e Emissor sao iguais!");   
+            return;
         }
 
         boolean achou1 = false, achou2 = false;
